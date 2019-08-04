@@ -28,12 +28,7 @@ class Application
 
     if req.path.match(/add/)
       item_add = req.params["item"]
-      if @@items.include? item_add
-        @@cart << item_add
-        resp.write "added #{item_add}"
-      else
-        resp.write "We don't have that item"
-      end
+      resp.write handle_cart(item_add)
     end
 
     resp.finish
@@ -47,7 +42,12 @@ class Application
     end
   end
 
-  def cart
-    
+  def handle_cart(item)
+    if @@items.include? item
+        @@cart << item
+        "added #{item}"
+      else
+        "We don't have that item"
+      end
   end
 end
