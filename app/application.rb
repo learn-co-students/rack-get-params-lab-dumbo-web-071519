@@ -2,13 +2,19 @@ class Application
   
 @@items = ["Apples", "Carrots", "Pears"]
 
+<<<<<<< HEAD
 @@cart = []
 
 
   
+=======
+  @@items = ["Apples","Carrots","Pears"]
+  @@cart = []
+>>>>>>> b6a205023b28ad1f8b1e290632b53858d669e947
   def call(env)
     resp = Rack::Response.new 
     req = Rack::Request.new(env)
+<<<<<<< HEAD
     
     if req.path.match(/items/)
       @@items.each do |item|
@@ -39,6 +45,33 @@ class Application
       resp.write "Path Not Found"
     end 
     
+=======
+
+
+    if req.path.match(/items/)
+      @@items.each do |item|
+        resp.write "#{item}\n"
+      end
+      
+    
+    if req.path.match(/cart/)
+      @@cart.each do |item|
+        resp.write "#{item}\n"
+        
+      end
+      
+      
+      
+      
+    elsif req.path.match(/search/)
+      search_term = req.params["q"]
+      resp.write handle_search(search_term)
+    end
+    else
+      resp.write "Your cart is empty"
+    end
+
+>>>>>>> b6a205023b28ad1f8b1e290632b53858d669e947
     resp.finish
   end
 
