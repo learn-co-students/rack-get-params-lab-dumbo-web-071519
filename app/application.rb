@@ -6,16 +6,16 @@ class Application
     resp = Rack::Response.new
     req = Rack::Request.new(env)
 
-    if req.path.match(/items/)
-      @@items.each do |item|
+      if req.path.match(/items/)
+       @@items.each do |item|
         resp.write "#{item}\n"
       end
-    elsif req.path.match(/search/)
-      search_term = req.params["q"]
-      resp.write handle_search(search_term)
-    elsif req.path.match(/cart/)
+      elsif req.path.match(/search/)
+       search_term = req.params["q"]
+       resp.write handle_search(search_term)
+      elsif req.path.match(/cart/)
       if @@cart.size!=0
-      @@cart.each do |cart_item|
+        @@cart.each do |cart_item|
         resp.write "#{cart_item}\n"
         end
       else
@@ -23,12 +23,8 @@ class Application
       end
       elsif req.path.match(/add/)
         term_to_add = req.params["item"]
-       
-
         resp.write handle_add(term_to_add)
-      
-       
-    else
+      else
       resp.write "Path Not Found"
     end
 
